@@ -1,4 +1,4 @@
-package com.example.java.maven.Excercises;
+package com.example.java.maven.Excercises.BubbleSort;
 
 import java.util.Arrays;
 import java.util.Scanner;
