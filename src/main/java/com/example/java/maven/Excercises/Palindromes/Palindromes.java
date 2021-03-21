@@ -1,8 +1,10 @@
 package com.example.java.maven.Excercises.Palindromes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Palindromes {
 
@@ -17,9 +19,8 @@ public class Palindromes {
 
     public static void main(String[] args) {
         Palindromes palindromes = new Palindromes();
-
         palindromes.getUserInput();
-        palindromes.checkIfStringsArePalindromes();
+        palindromes.determineIfProvidedStringsArePalindromes();
         System.out.println(palindromes.returnResults());
     }
 
@@ -33,13 +34,9 @@ public class Palindromes {
     }
 
     String returnAlphabetical(String string) {
-        String alphabeticalString = "";
-        for (int index = 0; index < string.length(); index++) {
-            if (Character.isAlphabetic(string.charAt(index))) {
-                alphabeticalString += string.charAt(index);
-            }
-        }
-        return alphabeticalString;
+        return Arrays.stream(string.split(""))
+                .filter(s -> Character.isAlphabetic(s.charAt(0)))
+                .collect(Collectors.joining());
     }
 
     String reverseString(String stringToReverse) {
@@ -50,13 +47,17 @@ public class Palindromes {
         return reversedString;
     }
 
-    void checkIfStringsArePalindromes() {
-        for (String stringToCheck : array) {
-            if (returnAlphabetical(stringToCheck).equalsIgnoreCase(returnAlphabetical(reverseString(stringToCheck)))) {
-                results.add("Y");
-            } else {
-                results.add("N");
-            }
+    String checkIfStringIsPalindrome(String stringToCheck) {
+        if (returnAlphabetical(stringToCheck).equalsIgnoreCase(returnAlphabetical(reverseString(stringToCheck)))) {
+            return "Y";
+        } else {
+            return "N";
         }
+    }
+
+    void determineIfProvidedStringsArePalindromes() {
+        results = Arrays.stream(array)
+                .map(this::checkIfStringIsPalindrome)
+                .collect(Collectors.toList());
     }
 }
