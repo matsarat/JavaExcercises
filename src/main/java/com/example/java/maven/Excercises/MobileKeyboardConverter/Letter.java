@@ -1,5 +1,7 @@
 package com.example.java.maven.Excercises.MobileKeyboardConverter;
 
+import java.util.Arrays;
+
 public enum Letter {
 
     A('A', "2"),
@@ -41,20 +43,20 @@ public enum Letter {
     }
 
     public static char matchLetterToNumber(String numberToCheck) {
-        for (Letter letter : Letter.values()) {
-            if (letter.number.equals(numberToCheck)) {
-                return letter.character;
-            }
-        }
-        throw new IllegalArgumentException(String.format("Invalid number: %s", numberToCheck));
+
+        return Arrays.stream(Letter.values())
+                .filter(letter -> letter.number.equals(numberToCheck))
+                .map(letter -> letter.character)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Invalid number: %s", numberToCheck)));
     }
 
     public static String matchNumberToLetter(char letterToCheck) {
-        for (Letter letter : Letter.values()) {
-            if (letter.character == letterToCheck) {
-                return letter.number;
-            }
-        }
-        throw new IllegalArgumentException(String.format("Invalid letter: %s", letterToCheck));
+
+        return Arrays.stream(Letter.values())
+                .filter(letter -> letter.character == letterToCheck)
+                .map(letter -> letter.number)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Invalid letter: %s", letterToCheck)));
     }
 }
