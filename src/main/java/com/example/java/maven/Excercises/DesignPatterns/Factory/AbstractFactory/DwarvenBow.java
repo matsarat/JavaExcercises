@@ -1,7 +1,7 @@
 package com.example.java.maven.Excercises.DesignPatterns.Factory.AbstractFactory;
 
 public class DwarvenBow implements Bow{
-    private final static String BOW_TYPE = "Elven bow";
+    private final static String BOW_TYPE = "Dwarven bow";
 
     @Override
     public String getBowType() {
